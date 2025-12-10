@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S'inscrire - Webshop</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="bg-white text-gray-800">
+  <header class="border-b bg-white shadow-sm relative">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="brand-font playfair text-2xl font-bold tracking-wide">
+        Webshop<span class="text-red-500">.</span>
+      </h1>
+
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="index.html" class="text-red-400 border-b-2 border-red-400 pb-1">Accueil</a>
+        <a href="collection_men.html" class="hover:text-red-400 transition">Hommes</a>
+        <a href="collection_women.html" class="hover:text-red-400 transition">Femmes</a>
+        <a href="contact.html" class="hover:text-red-400 transition">Contact</a>
+      </nav>
+
+      <div class="flex items-center space-x-4 text-gray-600">
+        <i class="fas fa-search cursor-pointer hover:text-black"></i>
+        <a href="login.html"><i class="fas fa-user cursor-pointer hover:text-black"></i></a>
+        <div class="relative">
+          <i id="cart-icon" class="fas fa-shopping-bag cursor-pointer hover:text-black"></i>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-400 text-white text-xs rounded-full px-1.5">0</span>
+        </div>
+
+        <button id="hamburger" class="md:hidden focus:outline-none">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-menu"
+      class="md:hidden absolute top-full left-0 w-full bg-white shadow-md max-h-0 overflow-hidden transition-all duration-500 ease-in-out z-10">
+      <ul class="flex flex-col text-sm font-medium">
+        <li><a href="index.html" class="block py-3 px-6 hover:bg-gray-100">Accueil</a></li>
+        <li><a href="collection_men.html" class="block py-3 px-6 hover:bg-gray-100">Hommes</a></li>
+        <li><a href="collection_women.html" class="block py-3 px-6 hover:bg-gray-100">Femmes</a></li>
+        <li><a href="contact.html" class="block py-3 px-6 hover:bg-gray-100">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="flex justify-between items-center p-6 border-b">
+      <h2 class="text-xl font-bold">Mon panier</h2>
+      <button id="close-cart-btn" class="text-gray-500 hover:text-black">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+
+    <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+      <p class="text-gray-500 text-center">Votre panier est vide</p>
+    </div>
+
+    <div class="border-t p-6">
+      <div class="flex justify-between mb-4 font-semibold">
+        <span>Total:</span>
+        <span id="cart-total">0 MUR</span>
+      </div>
+      <a href="payment.html" class="block w-full bg-red-400 text-white py-3 px-4 rounded-lg hover:bg-red-500 transition font-semibold text-center shadow-md hover:shadow-lg">
+        Procéder au paiement
+      </a>
+      <button id="continue-shopping-btn" class="w-full mt-2 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition font-semibold">
+        Continuer vos achats
+      </button>
+    </div>
+  </div>
+
+  <div id="cart-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-all duration-300"></div>
+
+  <main class="container mx-auto px-6 py-16 min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full">
+      <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">S'inscrire</h1>
+
+      <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+        <form>
+          <div class="mb-6">
+            <label for="fullname" class="block text-gray-700 font-semibold mb-2">Nom complet</label>
+            <input type="text" id="fullname" name="fullname" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition" 
+              placeholder="Jean Dupont" required>
+          </div>
+            <div class="mb-6">
+            <label for="adress" class="block text-gray-700 font-semibold mb-2">Adresse</label>
+            <input type="text" id="adress" name="adress" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition" 
+              placeholder="Votre adresse..." required>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label for="ville" class="block text-gray-700 font-semibold mb-2">Ville</label>
+            <input type="text" id="ville" name="ville"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition"
+              placeholder="Ex: Paris" required>
+          </div>
+
+          <div>
+            <label for="code_postal" class="block text-gray-700 font-semibold mb-2">Code postal</label>
+            <input type="text" id="code_postal" name="code_postal"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition"
+              placeholder="Ex: 75000" required>
+          </div>
+        </div>
+
+          <div class="mb-6">
+            <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+            <input type="email" id="email" name="email" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition" 
+              placeholder="votre@email.com" required>
+          </div>
+
+          <div class="mb-6">
+            <label for="password" class="block text-gray-700 font-semibold mb-2">Mot de passe</label>
+            <input type="password" id="password" name="password" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition" 
+              placeholder="••••••••" required>
+          </div>
+
+          <div class="mb-6">
+            <label for="confirm-password" class="block text-gray-700 font-semibold mb-2">Confirmer le mot de passe</label>
+            <input type="password" id="confirm-password" name="confirm-password" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100 transition" 
+              placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" 
+            class="w-full bg-red-400 text-white py-3 rounded-lg hover:bg-red-500 transition font-semibold text-lg">
+            S'inscrire
+          </button>
+        </form>
+      </div>
+
+      <p class="text-center text-gray-600 mt-6">
+        Vous avez déjà un compte ?
+        <a href="login.html" class="text-red-400 font-semibold hover:text-red-500 transition">
+          Se connecter
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-gray-400 py-6 text-center mt-12">
+    <p>
+      <i class="far fa-copyright mr-1"></i> 2025 Webshop. Tous droits réservés.
+    </p>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+
+</html>

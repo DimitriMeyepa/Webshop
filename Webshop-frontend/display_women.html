@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalons - Garde-robe FEMME</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <header class="border-b bg-white shadow-sm relative">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+          <h1 class="brand-font playfair text-2xl font-bold tracking-wide">
+            Webshop<span class="text-red-500">.</span>
+          </h1>
+      
+          <!-- Desktop menu -->
+          <nav class="hidden md:flex space-x-8 text-sm font-medium">
+            <a href="index.html" class="hover:text-red-400 transition">Accueil</a>
+            <a href="collection_men.html" class="hover:text-red-400 transition">Hommes</a>
+            <a href="collection_women.html" class="hover:text-red-400 transition">Femmes</a>
+            <a href="contact.html" class="hover:text-red-400 transition">Contact</a>
+          </nav>
+      
+          <div class="flex items-center space-x-4 text-gray-600">
+            <i class="fas fa-search cursor-pointer hover:text-black"></i>
+            <a href="login.html"><i class="fas fa-user cursor-pointer hover:text-black"></i></a>
+            <div class="relative">
+              <i id="cart-icon" class="fas fa-shopping-bag cursor-pointer hover:text-black"></i>
+              <span class="absolute -top-2 -right-2 bg-red-400 text-white text-xs rounded-full px-1.5">0</span>
+            </div>
+      
+            <!-- Hamburger button (mobile only) -->
+            <button id="hamburger" class="md:hidden focus:outline-none">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      
+        <!-- Mobile menu -->
+        <nav id="mobile-menu" class="md:hidden absolute top-full left-0 w-full bg-white shadow-md max-h-0 overflow-hidden transition-all duration-500 ease-in-out z-10">
+          <ul class="flex flex-col text-sm font-medium">
+            <li><a href="index.html" class="block py-3 px-6 hover:bg-gray-100">Accueil</a></li>
+            <li><a href="collection_men.html" class="block py-3 px-6 hover:bg-gray-100">Hommes</a></li>
+            <li><a href="collection_women.html" class="block py-3 px-6 hover:bg-gray-100">Femmes</a></li>
+            <li><a href="contact.html" class="block py-3 px-6 hover:bg-gray-100">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+
+  <div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="flex justify-between items-center p-6 border-b">
+      <h2 class="text-xl font-bold">Mon panier</h2>
+      <button id="close-cart-btn" class="text-gray-500 hover:text-black">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+
+    <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+      <p class="text-gray-500 text-center">Votre panier est vide</p>
+    </div>
+
+    <div class="border-t p-6">
+      <div class="flex justify-between mb-4 font-semibold">
+        <span>Total:</span>
+        <span id="cart-total">0 MUR</span>
+      </div>
+      <a href="payment.html" class="block w-full bg-red-400 text-white py-3 px-4 rounded-lg hover:bg-red-500 transition font-semibold text-center shadow-md hover:shadow-lg">
+        Procéder au paiement
+      </a>
+      <button id="continue-shopping-btn" class="w-full mt-2 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition font-semibold">
+        Continuer vos achats
+      </button>
+    </div>
+  </div>
+
+  <div id="cart-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-all duration-300"></div>
+
+
+    <!-- Bouton Retour -->
+    <div class="container mx-auto px-6 mt-4">
+        <a href="collection_women.html"
+            class="inline-flex items-center text-gray-700 border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100 transition">
+            <i class="fas fa-arrow-left mr-2"></i> Retour à la collection
+        </a>
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8 items-stretch">
+
+            <!-- Section image du produit -->
+            <div class="md:w-2/3">
+            <div class="bg-gray-100 w-full h-full rounded overflow-hidden flex items-center justify-center">
+                <img id="product-image" src="img/pants/noir.jpg" alt="Pantalon Wide Leg"
+                    class="w-full h-full object-cover object-center">
+            </div>
+            </div>
+
+            <!-- Section informations du produit -->
+            <div class="md:w-max bg-white p-6 md:p-8 rounded-lg shadow-sm h-full text-sm flex flex-col justify-between">
+                <div>
+                    <!-- Catégorie et titre -->
+                    <div class="mb-3">
+                        <span class="text-xs text-gray-500">Casual</span>
+                        <h1 class="text-xl font-bold text-gray-800 mt-1">Pantalon Wide Leg</h1>
+                    </div>
+
+                    <!-- Prix et livraison -->
+                    <div class="mb-3">
+                        <p class="text-base font-semibold text-gray-800">6,500 MUR
+                            <span class="text-green-600 text-xs font-normal">
+                                <i class="fas fa-shipping-fast mr-1"></i> Livraison gratuite
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-5">
+                        <p class="text-gray-600 text-sm">
+                            Notre Pantalon Wide Leg allie confort et élégance décontractée. Sa coupe ample offre liberté
+                            de mouvement, tandis que son design minimaliste et contemporain s’adapte parfaitement à
+                            toutes vos tenues casual.
+                        </p>
+                    </div>
+
+                    <!-- Tailles -->
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="text-sm text-gray-700">Sélectionnez votre taille :</p>
+                            <button id="openSizeGuide"
+                                class="text-xs text-red-500 hover:text-red-600 underline font-medium">
+                                Guide des tailles
+                            </button>
+                        </div>
+
+                        <div class="flex items-center space-x-4 mb-2">
+                            <span class="size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer">XL</span>
+                            <span class="size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer">L</span>
+                            <span class="size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer">M</span>
+                            <span class="size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer">S</span>
+                        </div>
+                    </div>
+
+                    <!-- Couleurs -->
+                    <div class="mb-5">
+                        <p class="text-xs text-gray-700 mb-1">Couleurs disponibles :</p>
+                        <div class="flex items-center space-x-2">
+                            <div class="color-option active bg-black w-6 h-6 rounded-full cursor-pointer" title="Noir" data-src="img/pants/noir.jpg"></div>
+                            <div class="color-option bg-blue-400 w-6 h-6 rounded-full cursor-pointer" title="Bleu clair" data-src="img/pants/bleu.jpg"></div>
+                            <div class="color-option bg-red-700 w-6 h-6 rounded-full cursor-pointer" title="Rouge clair" data-src="img/pants/rouge.jpg"></div>
+                        </div>
+                        <div class="mt-1 text-xs text-gray-500">
+                            <span id="selected-color">Noir</span> sélectionné
+                        </div>
+                    </div>
+
+                    <!-- Prix et bouton d'action -->
+                    <div class="mb-5">
+                        <p id="product-price" class="text-xl font-bold text-gray-800 mb-2" data-unit-price="6500">6,500
+                            MUR</p>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex items-center border border-gray-300 rounded">
+                                <button id="decrease" class="px-2 py-1 text-gray-600 hover:bg-gray-100">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span id="quantity" class="px-3 py-1">1</span>
+                                <button id="increase" class="px-2 py-1 text-gray-600 hover:bg-gray-100">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <button
+                                class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition flex items-center">
+                                <i class="fas fa-shopping-cart mr-2"></i> Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer : SKU, catégorie et paiement -->
+                <div class="mt-auto">
+                    <!-- SKU et catégorie -->
+                    <div class="mb-4 text-xs text-gray-500">
+                        <p><i class="fas fa-tag mr-2"></i> SKU : N/A</p>
+                        <p><i class="fas fa-folder mr-2"></i> Catégorie : Casual</p>
+                    </div>
+
+                    <!-- Paiement sécurisé -->
+                    <div class="border-t border-gray-200 pt-3">
+                        <p class="text-xs text-gray-500 mb-2 flex items-center">
+                            <i class="fas fa-shield-alt mr-2 text-green-500"></i> Paiement sécurisé garanti
+                        </p>
+                        <div class="flex items-center space-x-3">
+                            <div class="payment-icon">
+                                <img src="img/logo/Visa-Logo.png" alt="VISA" class="h-6">
+                            </div>
+                            <div class="payment-icon">
+                                <img src="img/logo/mastercard.png" alt="MasterCard" class="h-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Onglets de description -->
+        <div class="mt-8 bg-white rounded-lg shadow-sm">
+            <div class="border-b border-gray-200">
+                <nav class="flex -mb-px">
+                    <button class="py-3 px-6 border-b-2 border-black text-black font-medium flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i> Description
+                    </button>
+                    <button class="py-3 px-6 text-gray-500 hover:text-gray-700 font-medium flex items-center">
+                        <i class="fas fa-list-alt mr-2"></i> Informations supplémentaires
+                    </button>
+                    <button class="py-3 px-6 text-gray-500 hover:text-gray-700 font-medium flex items-center">
+                        <i class="fas fa-star mr-2"></i> Avis (0)
+                    </button>
+                </nav>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 text-sm">
+                    Notre Pantalon Wide Leg est conçu pour allier confort et style moderne. Sa coupe ample offre une
+                    grande liberté de mouvement tout en apportant une silhouette élégante et décontractée. Parfait pour
+                    vos
+                    tenues casual ou pour un look chic sans effort au quotidien.
+                </p>
+                <ul class="mt-4 text-gray-600 list-disc pl-5 space-y-2 text-sm">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Composition : 60 % coton, 40 % polyester</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Disponible en tailles XS à XL</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Disponible en plusieurs couleurs tendance</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Lavable en machine à 30 °C</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> Conçu selon des pratiques durables</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-6 text-center">
+        <p><i class="far fa-copyright mr-1"></i> 2025 Webshop. Tous droits réservés.</p>
+    </footer>
+
+    <script src="js/class.js"></script>
+    <script src="js/count.js"></script>
+
+    <!-- MODAL - Guide des tailles -->
+    <div id="sizeGuideModal"
+        class="fixed inset-0 bg-black bg-opacity-40 hidden z-50 flex items-center justify-center">
+
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 relative transform transition-all">
+            <!-- Bouton fermeture -->
+            <button id="closeSizeGuide"
+                class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Titre -->
+            <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-ruler-combined mr-2 text-red-500"></i> Guide des tailles
+            </h2>
+
+            <!-- Tableau -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-gray-700 border border-gray-200 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-100 text-gray-800 font-semibold">
+                        <tr>
+                            <th class="py-2 px-3 text-left">Taille</th>
+                            <th class="py-2 px-3 text-left">Tour de poitrine (cm)</th>
+                            <th class="py-2 px-3 text-left">Tour de taille (cm)</th>
+                            <th class="py-2 px-3 text-left">Tour de hanches (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t">
+                            <td class="py-2 px-3">S</td>
+                            <td class="py-2 px-3">88 - 94</td>
+                            <td class="py-2 px-3">76 - 82</td>
+                            <td class="py-2 px-3">90 - 96</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-2 px-3">M</td>
+                            <td class="py-2 px-3">95 - 101</td>
+                            <td class="py-2 px-3">83 - 89</td>
+                            <td class="py-2 px-3">97 - 103</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-2 px-3">L</td>
+                            <td class="py-2 px-3">102 - 108</td>
+                            <td class="py-2 px-3">90 - 96</td>
+                            <td class="py-2 px-3">104 - 110</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-2 px-3">XL</td>
+                            <td class="py-2 px-3">109 - 115</td>
+                            <td class="py-2 px-3">97 - 103</td>
+                            <td class="py-2 px-3">111 - 117</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const openModalBtn = document.getElementById('openSizeGuide');
+        const closeModalBtn = document.getElementById('closeSizeGuide');
+        const modal = document.getElementById('sizeGuideModal');
+
+        openModalBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+        closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.add('hidden');
+        });
+
+        // Changer l'image du produit selon la couleur sélectionnée
+        const colorOptions = document.querySelectorAll('.color-option');
+        const productImage = document.getElementById('product-image');
+        const selectedColorText = document.getElementById('selected-color');
+
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                colorOptions.forEach(o => o.classList.remove('active', 'ring-2', 'ring-red-500'));
+                option.classList.add('active', 'ring-2', 'ring-red-500');
+                productImage.src = option.dataset.src;
+                selectedColorText.textContent = option.title;
+            });
+        });
+    </script>
+
+    <script src="js/nav.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+
+</html>

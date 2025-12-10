@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produit - HOMME Wardrobe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50">
+
+  <!-- Navbar -->
+  <header class="border-b bg-white shadow-sm relative">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="brand-font playfair text-2xl font-bold tracking-wide">
+        Webshop<span class="text-red-500">.</span>
+      </h1>
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-red-400 transition">Accueil</a>
+        <a href="collection_men.html" class="hover:text-red-400 transition">Hommes</a>
+        <a href="collection_women.html" class="hover:text-red-400 transition">Femmes</a>
+        <a href="contact.html" class="hover:text-red-400 transition">Contact</a>
+      </nav>
+      <div class="flex items-center space-x-4 text-gray-600">
+        <i class="fas fa-search cursor-pointer hover:text-black"></i>
+        <a href="login.html"><i class="fas fa-user cursor-pointer hover:text-black"></i></a>
+        <div class="relative">
+          <i id="cart-icon" class="fas fa-shopping-bag cursor-pointer hover:text-black"></i>
+          <span class="absolute -top-2 -right-2 bg-red-400 text-white text-xs rounded-full px-1.5">0</span>
+        </div>
+        <button id="hamburger" class="md:hidden focus:outline-none">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Retour -->
+  <div class="container mx-auto px-6 mt-4">
+    <a href="collection_men.html"
+      class="inline-flex items-center text-gray-700 border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100 transition">
+      <i class="fas fa-arrow-left mr-2"></i> Retour à la collection
+    </a>
+  </div>
+
+  <!-- Contenu principal -->
+  <main class="container mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row gap-8 items-stretch">
+      <!-- Image produit -->
+      <div class="md:w-1/3">
+        <div class="bg-white p-8 rounded-lg shadow-sm h-full flex items-center justify-center">
+          <div class="bg-gray-100 w-full h-full rounded overflow-hidden">
+            <img id="product-image" src="" alt="Produit" class="w-full h-[inherit] object-cover">
+          </div>
+        </div>
+      </div>
+
+      <!-- Infos produit -->
+      <div class="md:w-2/3">
+        <div class="bg-white p-6 rounded-lg shadow-sm h-full">
+          <div class="mb-4">
+            <span id="product-category" class="text-sm text-gray-500"></span>
+            <h1 id="product-name" class="text-2xl font-bold text-gray-800 mt-1"></h1>
+          </div>
+
+          <div class="mb-4">
+            <p id="product-price" class="text-lg font-semibold text-gray-800">
+              <span class="text-green-600 text-sm font-normal">
+                <i class="fas fa-shipping-fast mr-1"></i> Livraison gratuite
+              </span>
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <p id="product-description" class="text-gray-600"></p>
+          </div>
+
+          <!-- Tailles -->
+          <div class="mb-4">
+            <div class="flex justify-between items-center mb-2">
+              <p class="text-sm text-gray-700">Sélectionnez votre taille :</p>
+              <button id="openSizeGuide" class="text-xs text-red-500 hover:text-red-600 underline font-medium">
+                Guide des tailles
+              </button>
+            </div>
+            <div id="sizes" class="flex items-center space-x-4 mb-2"></div>
+          </div>
+          <!-- Couleurs -->
+          <div class="mb-6">
+            <p class="text-sm text-gray-700 mb-2">Couleurs disponibles :</p>
+            <div id="colors" class="flex items-center space-x-3"></div>
+          </div>
+
+          <!-- Quantité et bouton -->
+          <div class="mb-5">
+            <div class="flex items-center space-x-2">
+              <div class="flex items-center border border-gray-300 rounded">
+                <button id="decrease" class="px-2 py-1 text-gray-600 hover:bg-gray-100">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <span id="quantity" class="px-3 py-1">1</span>
+                <button id="increase" class="px-2 py-1 text-gray-600 hover:bg-gray-100">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <button id="add-to-cart" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition flex items-center">
+                <i class="fas fa-shopping-cart mr-2"></i> Ajouter au panier
+              </button>
+            </div>
+          </div>
+
+          <!-- Infos supplémentaires -->
+          <div class="mb-6 text-sm text-gray-500">
+            <p>SKU: <span id="product-sku"></span></p>
+            <p>Catégorie : <span id="product-category-info"></span></p>
+          </div>
+
+          <!-- Paiement (statique) -->
+          <div class="border-t border-gray-200 pt-6">
+            <p class="text-sm text-gray-500 mb-2 flex items-center">
+              <i class="fas fa-shield-alt mr-2 text-green-500"></i> Paiement sécurisé garanti
+            </p>
+            <div class="flex items-center space-x-4">
+              <div class="payment-icon">
+                <img src="img/logo/Visa-Logo.png" alt="VISA" class="h-8">
+              </div>
+              <div class="payment-icon">
+                <img src="img/logo/mastercard.png" alt="MasterCard" class="h-8">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Description / Infos complémentaires / Avis -->
+    <div class="mt-8 bg-white rounded-lg shadow-sm">
+      <div class="border-b border-gray-200">
+        <nav class="flex -mb-px">
+          <button class="py-3 px-6 border-b-2 border-black text-black font-medium flex items-center">
+            <i class="fas fa-info-circle mr-2"></i> Description
+          </button>
+          <button class="py-3 px-6 text-gray-500 hover:text-gray-700 font-medium flex items-center">
+            <i class="fas fa-list-alt mr-2"></i> Informations complémentaires
+          </button>
+          <button class="py-3 px-6 text-gray-500 hover:text-gray-700 font-medium flex items-center">
+            <i class="fas fa-star mr-2"></i> Avis (<span id="product-reviews-count">0</span>)
+          </button>
+        </nav>
+      </div>
+      <div class="p-6">
+        <p id="product-long-description" class="text-gray-600"></p>
+        <ul id="product-features" class="mt-4 text-gray-600 list-disc pl-5 space-y-2"></ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-400 py-6 text-center">
+    <p><i class="far fa-copyright mr-1"></i> 2025 Webshop. Tous droits réservés.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/taille.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/cart.js"></script>
+
+  <!-- Script dynamique produit -->
+  <script>
+// Récupération de la référence produit depuis l'URL
+const urlParams = new URLSearchParams(window.location.search);
+const ref = urlParams.get('ref');
+
+// Éléments DOM
+const quantityEl = document.getElementById('quantity');
+const decreaseBtn = document.getElementById('decrease');
+const increaseBtn = document.getElementById('increase');
+const addToCartBtn = document.getElementById('add-to-cart');
+const priceEl = document.getElementById('product-price');
+
+let quantity = 1;
+let unitPrice = 0; // sera initialisé après fetch
+
+// Fonction pour mettre à jour l'affichage de la quantité
+function updateQuantityDisplay() {
+  quantityEl.textContent = quantity;
+}
+
+// Fonction pour mettre à jour le prix total
+function updatePriceDisplay() {
+  priceEl.textContent = (unitPrice * quantity).toLocaleString() + ' MUR';
+}
+
+// Augmenter / diminuer la quantité
+increaseBtn.addEventListener('click', () => {
+  quantity++;
+  updateQuantityDisplay();
+  updatePriceDisplay();
+});
+
+decreaseBtn.addEventListener('click', () => {
+  if (quantity > 1) {
+    quantity--;
+    updateQuantityDisplay();
+    updatePriceDisplay();
+  }
+});
+
+// Ajouter au panier
+addToCartBtn.addEventListener('click', () => {
+  const cartItem = {
+    id: ref,
+    nom: document.getElementById('product-name').textContent,
+    prix: unitPrice,
+    quantite: quantity,
+    image: document.getElementById('product-image').src
+  };
+  addToCart(cartItem); // fonction déjà dans cart.js
+});
+
+if (!ref) {
+  alert("Produit introuvable !");
+} else {
+  fetch(`../Webshop-backend/get_product.php?ref=${ref}`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data || !data.product) {
+        alert(data?.error || "Produit introuvable !");
+        return;
+      }
+
+      const p = data.product;
+
+      // Initialisation du prix unitaire après fetch
+      unitPrice = parseFloat(p.prix) || 0;
+      updatePriceDisplay();
+
+      // Remplissage des infos produit
+      document.getElementById('product-image').src = p.image_principale || 'img/costume/costume_noir.jpg';
+      document.getElementById('product-name').textContent = p.nom || '';
+      document.getElementById('product-category').textContent = p.categorie || '';
+      document.getElementById('product-description').textContent = p.description || ''; 
+      document.getElementById('product-sku').textContent = p.sku || '';
+      document.getElementById('product-category-info').textContent = p.categorie || '';
+      document.getElementById('product-long-description').textContent = p.description_longue || ''; 
+
+
+
+      // Tailles
+      const sizesContainer = document.getElementById('sizes');
+      sizesContainer.innerHTML = '';
+      if (Array.isArray(p.tailles_disponibles)) {
+        p.tailles_disponibles.forEach(size => {
+          if (size) {
+            const span = document.createElement('span');
+            span.textContent = size;
+            span.className = 'size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer';
+            sizesContainer.appendChild(span);
+          }
+        });
+      }
+
+      // Couleurs
+      const selectedColor = p.couleur_actuelle || '';
+      const colorsContainer = document.getElementById('colors');
+      colorsContainer.innerHTML = '';
+      if (Array.isArray(data.couleurs_disponibles)) {
+        data.couleurs_disponibles.forEach(c => {
+          const div = document.createElement('div');
+          div.className = 'color-option w-6 h-6 rounded cursor-pointer border border-gray-300';
+          div.dataset.src = c.image || p.image_principale;
+          div.title = c.nom || '';
+          if (c.nom === selectedColor) div.classList.add('border-2', 'border-black');
+
+          // Couleur CSS
+          if (c.hex && c.hex !== '') div.style.backgroundColor = c.hex;
+          else if (c.nom) {
+            switch (c.nom.toLowerCase()) {
+              case 'noir': div.style.backgroundColor = '#1f2937'; break;
+              case 'bleu': div.style.backgroundColor = '#1e40af'; break;
+              case 'gris': div.style.backgroundColor = '#374151'; break;
+              default: div.style.backgroundColor = '#000';
+            }
+          }
+
+          div.addEventListener('click', () => {
+            document.getElementById('product-image').src = div.dataset.src;
+            colorsContainer.querySelectorAll('.color-option').forEach(o => o.classList.remove('border-2', 'border-black'));
+            div.classList.add('border-2', 'border-black');
+          });
+
+          colorsContainer.appendChild(div);
+        });
+      }
+
+      // Caractéristiques
+      const featuresContainer = document.getElementById('product-features');
+      featuresContainer.innerHTML = '';
+      if (Array.isArray(p.caracteristiques)) {
+        p.caracteristiques.forEach(f => {
+          const li = document.createElement('li');
+          li.innerHTML = `<i class="fas fa-check text-green-500 mr-2"></i>${f}`;
+          featuresContainer.appendChild(li);
+        });
+      }
+
+      // Nombre d'avis
+      document.getElementById('product-reviews-count').textContent = p.nb_avis || 0;
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Erreur lors du chargement du produit.");
+    });
+}
+
+  </script>
+
+</body>
+</html>

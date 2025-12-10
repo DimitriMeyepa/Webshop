@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Webshop</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display&display=swap"
+    rel="stylesheet" />
+
+  <!-- Ton fichier CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- NAVBAR -->
+  <header class="border-b bg-white shadow-sm relative">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="brand-font playfair text-2xl font-bold tracking-wide">
+        Webshop<span class="text-red-500">.</span>
+      </h1>
+
+      <!-- Desktop menu -->
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-red-400 transition">Accueil</a>
+        <a href="collection_men.html" class="hover:text-red-400 transition">Hommes</a>
+        <a href="collection_women.html" class="hover:text-red-400 transition">Femmes</a>
+        <a href="contact.html" class="text-red-400 border-b-2 border-red-400 pb-1">Contact</a>
+      </nav>
+
+      <div class="flex items-center space-x-4 text-gray-600">
+        <i class="fas fa-search cursor-pointer hover:text-black"></i>
+        <a href="login.html"><i class="fas fa-user cursor-pointer hover:text-black"></i></a>
+        <div class="relative">
+          <i id="cart-icon" class="fas fa-shopping-bag cursor-pointer hover:text-black"></i>
+          <span class="absolute -top-2 -right-2 bg-red-400 text-white text-xs rounded-full px-1.5">0</span>
+        </div>
+
+        <!-- Hamburger button (mobile only) -->
+        <button id="hamburger" class="md:hidden focus:outline-none">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <nav id="mobile-menu"
+      class="md:hidden absolute top-full left-0 w-full bg-white shadow-md max-h-0 overflow-hidden transition-all duration-500 ease-in-out z-10">
+      <ul class="flex flex-col text-sm font-medium">
+        <li><a href="index.html" class="block py-3 px-6 hover:bg-gray-100">Accueil</a></li>
+        <li><a href="collection_men.html" class="block py-3 px-6 hover:bg-gray-100">Hommes</a></li>
+        <li><a href="collection_women.html" class="block py-3 px-6 hover:bg-gray-100">Femmes</a></li>
+        <li><a href="contact.html" class="block py-3 px-6 hover:bg-gray-100">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="flex justify-between items-center p-6 border-b">
+      <h2 class="text-xl font-bold">Mon panier</h2>
+      <button id="close-cart-btn" class="text-gray-500 hover:text-black">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+
+    <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+      <p class="text-gray-500 text-center">Votre panier est vide</p>
+    </div>
+
+    <div class="border-t p-6">
+      <div class="flex justify-between mb-4 font-semibold">
+        <span>Total:</span>
+        <span id="cart-total">0 MUR</span>
+      </div>
+      <a href="payment.html" class="block w-full bg-red-400 text-white py-3 px-4 rounded-lg hover:bg-red-500 transition font-semibold text-center shadow-md hover:shadow-lg">
+        Procéder au paiement
+      </a>
+      <button id="continue-shopping-btn" class="w-full mt-2 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition font-semibold">
+        Continuer vos achats
+      </button>
+    </div>
+  </div>
+
+  <div id="cart-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-all duration-300"></div>
+
+
+
+  <!-- CONTACT SECTION -->
+  <section class="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 md:p-16 gap-12">
+
+    <!-- IMAGE -->
+    <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+      <div class="h-[550px] flex items-center">
+        <img src="img/contact/contactphoto.png" alt="Models"
+          class="w-[450px] h-[550px] object-cover rounded-lg shadow-lg">
+      </div>
+    </div>
+
+    <!-- FORMULAIRE -->
+    <div class="w-full md:w-1/2 flex justify-center md:justify-start">
+      <div
+        class="bg-transparent border border-gray-300 rounded-lg p-8 md:p-10 w-full max-w-lg h-[550px] flex flex-col justify-between">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-8 text-center md:text-left">Contactez-nous</h1>
+
+          <form class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium mb-2">Nom complet</label>
+              <input type="text" placeholder="Votre nom"
+                class="w-full border-b border-gray-400 bg-transparent focus:outline-none focus:border-black py-2">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">E-mail</label>
+              <input type="email" placeholder="votremail@email.com"
+                class="w-full border-b border-gray-400 bg-transparent focus:outline-none focus:border-black py-2">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Message</label>
+              <textarea placeholder="Votre message" rows="3"
+                class="w-full border-b border-gray-400 bg-transparent focus:outline-none focus:border-black py-2"></textarea>
+            </div>
+
+            <button type="submit"
+              class="w-full md:w-auto bg-red-400 text-white rounded-full px-8 py-3 mt-4 hover:bg-red-500 transition">
+              Envoyer
+            </button>
+          </form>
+        </div>
+
+
+        <div class="flex justify-center md:justify-start items-center space-x-6 mt-4 text-xl">
+          <div class="flex space-x-5">
+            <a href="#" aria-label="Facebook" class="hover:text-gray-600">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" aria-label="Instagram" class="hover:text-gray-600">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" aria-label="Twitter" class="hover:text-gray-600">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+
+          <!-- Email à droite -->
+          <div class="text-sm text-gray-700 font-medium border-l border-gray-300 pl-4">
+            <a href="mailto:webshop@gmail.com" class="hover:text-red-400 transition">
+              webshop@gmail.com
+            </a>
+          </div>
+        </div>
+
+  </section>
+
+  <!-- FOOTER  -->
+  <footer class="bg-gray-800 text-gray-400 py-6 text-center">
+    <p>
+      <i class="far fa-copyright mr-1"></i>
+      2025 Webshop. Tous droits réservés.
+    </p>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+
+</html>
