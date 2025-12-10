@@ -15,34 +15,11 @@
 <body class="bg-gray-50">
 
   <!-- Navbar -->
-  <header class="border-b bg-white shadow-sm relative">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="brand-font playfair text-2xl font-bold tracking-wide">
-        Webshop<span class="text-red-500">.</span>
-      </h1>
-      <nav class="hidden md:flex space-x-8 text-sm font-medium">
-        <a href="index.html" class="hover:text-red-400 transition">Accueil</a>
-        <a href="collection_men.html" class="hover:text-red-400 transition">Hommes</a>
-        <a href="collection_women.html" class="hover:text-red-400 transition">Femmes</a>
-        <a href="contact.html" class="hover:text-red-400 transition">Contact</a>
-      </nav>
-      <div class="flex items-center space-x-4 text-gray-600">
-        <i class="fas fa-search cursor-pointer hover:text-black"></i>
-        <a href="login.html"><i class="fas fa-user cursor-pointer hover:text-black"></i></a>
-        <div class="relative">
-          <i id="cart-icon" class="fas fa-shopping-bag cursor-pointer hover:text-black"></i>
-          <span class="absolute -top-2 -right-2 bg-red-400 text-white text-xs rounded-full px-1.5">0</span>
-        </div>
-        <button id="hamburger" class="md:hidden focus:outline-none">
-          <i class="fas fa-bars text-xl"></i>
-        </button>
-      </div>
-    </div>
-  </header>
+  <?php include 'includes/navbar.php'; ?>
 
   <!-- Retour -->
   <div class="container mx-auto px-6 mt-4">
-    <a href="collection_men.html"
+    <a href="collection_men.php"
       class="inline-flex items-center text-gray-700 border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100 transition">
       <i class="fas fa-arrow-left mr-2"></i> Retour à la collection
     </a>
@@ -227,7 +204,7 @@ addToCartBtn.addEventListener('click', () => {
 if (!ref) {
   alert("Produit introuvable !");
 } else {
-  fetch(`../Webshop-backend/get_product.php?ref=${ref}`)
+  fetch(`../API/get_product.php?ref=${ref}`)
     .then(res => res.json())
     .then(data => {
       if (!data || !data.product) {
