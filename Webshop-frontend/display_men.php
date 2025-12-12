@@ -229,52 +229,214 @@ if (!ref) {
 
 
 
-      // Tailles
-      const sizesContainer = document.getElementById('sizes');
-      sizesContainer.innerHTML = '';
-      if (Array.isArray(p.tailles_disponibles)) {
-        p.tailles_disponibles.forEach(size => {
-          if (size) {
-            const span = document.createElement('span');
-            span.textContent = size;
-            span.className = 'size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer';
-            sizesContainer.appendChild(span);
-          }
-        });
-      }
+    // Tailles
+    const sizesContainer = document.getElementById('sizes');
+    sizesContainer.innerHTML = '';
+    let selectedSize = null;
 
-      // Couleurs
-      const selectedColor = p.couleur_actuelle || '';
-      const colorsContainer = document.getElementById('colors');
-      colorsContainer.innerHTML = '';
-      if (Array.isArray(data.couleurs_disponibles)) {
-        data.couleurs_disponibles.forEach(c => {
-          const div = document.createElement('div');
-          div.className = 'color-option w-6 h-6 rounded cursor-pointer border border-gray-300';
-          div.dataset.src = c.image || p.image_principale;
-          div.title = c.nom || '';
-          if (c.nom === selectedColor) div.classList.add('border-2', 'border-black');
-
-          // Couleur CSS
-          if (c.hex && c.hex !== '') div.style.backgroundColor = c.hex;
-          else if (c.nom) {
-            switch (c.nom.toLowerCase()) {
-              case 'noir': div.style.backgroundColor = '#1f2937'; break;
-              case 'bleu': div.style.backgroundColor = '#1e40af'; break;
-              case 'gris': div.style.backgroundColor = '#374151'; break;
-              default: div.style.backgroundColor = '#000';
+    if (Array.isArray(p.tailles_disponibles)) {
+      p.tailles_disponibles.forEach(size => {
+        if (size) {
+          const span = document.createElement('span');
+          span.textContent = size;
+          span.className = 'size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer';
+          
+          // Au clic, sélectionner ou désélectionner la taille
+          span.addEventListener('click', () => {
+            if (selectedSize === size) {
+              // Déselectionner si c'est déjà sélectionné
+              span.classList.remove('bg-black', 'text-white');
+              selectedSize = null;
+            } else {
+              // Retirer la sélection sur toutes les tailles
+              sizesContainer.querySelectorAll('.size-option').forEach(s => s.classList.remove('bg-black', 'text-white'));
+              
+              // Ajouter la sélection sur celle cliquée
+              span.classList.add('bg-black', 'text-white');
+              selectedSize = size;
             }
-          }
-
-          div.addEventListener('click', () => {
-            document.getElementById('product-image').src = div.dataset.src;
-            colorsContainer.querySelectorAll('.color-option').forEach(o => o.classList.remove('border-2', 'border-black'));
-            div.classList.add('border-2', 'border-black');
           });
 
-          colorsContainer.appendChild(div);
+          sizesContainer.appendChild(span);
+        }
+      });
+    }
+
+
+    // Couleurs
+    const colorsContainer = document.getElementById("colors");
+    colorsContainer.innerHTML = "";
+
+    if (Array.isArray(p.images)) {
+        p.images.forEach(imgObj => {
+            const dot = document.createElement("div");
+            dot.className = "w-6 h-6 rounded-full border border-gray-300 cursor-pointer";
+            dot.title = imgObj.couleur;
+            dot.style.backgroundColor = mapColorNameToHex(imgObj.couleur);
+
+            // Si c'est la couleur actuelle, bordure noire
+            if (imgObj.path === p.image_principale) {
+                dot.classList.add("border-2", "border-black");
+            }
+
+            // Au clic sur un cercle, changer l'image
+            dot.addEventListener("click", () => {
+                document.getElementById("product-image").src = imgObj.path;
+                colorsContainer.querySelectorAll(".w-6").forEach(d => d.classList.remove("border-2", "border-black"));
+                dot.classList.add("border-2", "border-black");
+            });
+
+            colorsContainer.appendChild(dot);
         });
-      }
+    }
+
+function mapColorNameToHex(color) {
+    const map = {
+        "bleu alice": "#F0F8FF",
+        "blanc antique": "#FAEBD7",
+        "aqua": "#00FFFF",
+        "aigue-marine": "#7FFFD4",
+        "azur": "#F0FFFF",
+        "beige": "#F5F5DC",
+        "bisque": "#FFE4C4",
+        "noir": "#000000",
+        "amande blanchie": "#FFEBCD",
+        "bleu": "#0000FF",
+        "violet bleu": "#8A2BE2",
+        "marron": "#A52A2A",
+        "bois de rose": "#DEB887",
+        "bleu cadet": "#5F9EA0",
+        "chartreuse": "#7FFF00",
+        "chocolat": "#D2691E",
+        "corail": "#FF7F50",
+        "bleu fleur de maïs": "#6495ED",
+        "soie de maïs": "#FFF8DC",
+        "cramoisi": "#DC143C",
+        "cyan": "#00FFFF",
+        "bleu foncé": "#00008B",
+        "cyan foncé": "#008B8B",
+        "or foncé": "#B8860B",
+        "gris foncé": "#A9A9A9",
+        "vert foncé": "#006400",
+        "kaki foncé": "#BDB76B",
+        "magenta foncé": "#8B008B",
+        "olive foncé": "#556B2F",
+        "orange foncé": "#FF8C00",
+        "orchidée foncé": "#9932CC",
+        "rouge foncé": "#8B0000",
+        "saumon foncé": "#E9967A",
+        "vert marin foncé": "#8FBC8F",
+        "bleu ardoise foncé": "#483D8B",
+        "gris ardoise foncé": "#2F4F4F",
+        "turquoise foncé": "#00CED1",
+        "violet foncé": "#9400D3",
+        "rose profond": "#FF1493",
+        "bleu ciel profond": "#00BFFF",
+        "gris moyen": "#696969",
+        "bleu éclair": "#1E90FF",
+        "brique": "#B22222",
+        "blanc floral": "#FFFAF0",
+        "vert forêt": "#228B22",
+        "fuchsia": "#FF00FF",
+        "gris gain": "#DCDCDC",
+        "blanc fantôme": "#F8F8FF",
+        "or": "#FFD700",
+        "or brun": "#DAA520",
+        "gris": "#808080",
+        "vert": "#008000",
+        "vert-jaune": "#ADFF2F",
+        "blanc miel": "#F0FFF0",
+        "rose chaud": "#FF69B4",
+        "rouge indien": "#CD5C5C",
+        "indigo": "#4B0082",
+        "ivoire": "#FFFFF0",
+        "kaki": "#F0E68C",
+        "lavande": "#E6E6FA",
+        "lavande rosée": "#FFF0F5",
+        "vert pelouse": "#7CFC00",
+        "citron clair": "#FFFACD",
+        "bleu clair": "#ADD8E6",
+        "corail clair": "#F08080",
+        "cyan clair": "#E0FFFF",
+        "jaune doré clair": "#FAFAD2",
+        "gris clair": "#D3D3D3",
+        "vert clair": "#90EE90",
+        "rose clair": "#FFB6C1",
+        "saumon clair": "#FFA07A",
+        "vert mer clair": "#20B2AA",
+        "bleu ciel clair": "#87CEFA",
+        "gris ardoise clair": "#778899",
+        "bleu acier clair": "#B0C4DE",
+        "jaune clair": "#FFFFE0",
+        "lime": "#00FF00",
+        "vert lime": "#32CD32",
+        "lin": "#FAF0E6",
+        "magenta": "#FF00FF",
+        "marron rouge": "#800000",
+        "aigue-marine moyen": "#66CDAA",
+        "bleu moyen": "#0000CD",
+        "orchidée moyen": "#BA55D3",
+        "pourpre moyen": "#9370DB",
+        "vert moyen": "#3CB371",
+        "bleu moyen ardoise": "#7B68EE",
+        "vert printemps moyen": "#00FA9A",
+        "turquoise moyen": "#48D1CC",
+        "rouge violet moyen": "#C71585",
+        "bleu minuit": "#191970",
+        "crème menthe": "#F5FFFA",
+        "rose brume": "#FFE4E1",
+        "mocassin": "#FFE4B5",
+        "blanc navajo": "#FFDEAD",
+        "bleu marine": "#000080",
+        "dentelle ancienne": "#FDF5E6",
+        "olive": "#808000",
+        "olive dru": "#6B8E23",
+        "orange": "#FFA500",
+        "rouge orangé": "#FF4500",
+        "orchidée": "#DA70D6",
+        "or pâle": "#EEE8AA",
+        "vert pâle": "#98FB98",
+        "turquoise pâle": "#AFEEEE",
+        "rouge violet pâle": "#DB7093",
+        "crème papaye": "#FFEFD5",
+        "pêche": "#FFDAB9",
+        "pérou": "#CD853F",
+        "rose": "#FFC0CB",
+        "prune": "#DDA0DD",
+        "bleu poudre": "#B0E0E6",
+        "pourpre": "#800080",
+        "rouge": "#FF0000",
+        "brun rosé": "#BC8F8F",
+        "bleu royal": "#4169E1",
+        "brun selle": "#8B4513",
+        "saumon": "#FA8072",
+        "sable": "#F4A460",
+        "vert mer": "#2E8B57",
+        "coquille": "#FFF5EE",
+        "sienne": "#A0522D",
+        "argent": "#C0C0C0",
+        "bleu ciel": "#87CEEB",
+        "bleu ardoise": "#6A5ACD",
+        "gris ardoise": "#708090",
+        "neige": "#FFFAFA",
+        "vert printemps": "#00FF7F",
+        "bleu acier": "#4682B4",
+        "brun clair": "#D2B48C",
+        "bleu sarcelle": "#008080",
+        "chardon": "#D8BFD8",
+        "tomate": "#FF6347",
+        "turquoise": "#40E0D0",
+        "violet": "#EE82EE",
+        "blé": "#F5DEB3",
+        "blanc": "#FFFFFF",
+        "fumée blanche": "#F5F5F5",
+        "jaune": "#FFFF00",
+        "vert jaune": "#9ACD32"
+    };
+    return map[color.toLowerCase()] || "#000000";
+}
+
+
 
       // Caractéristiques
       const featuresContainer = document.getElementById('product-features');
