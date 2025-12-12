@@ -23,15 +23,21 @@
         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400 transition" />
     </div>
     <div class="relative inline-block w-full md:w-1/4" data-aos="fade-down" data-aos-duration="700">
-      <button id="sortButton" class="w-full bg-white text-gray-800 font-medium py-2 px-4 border border-gray-300 rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 flex justify-between items-center transition">
+      <button id="sortButton"
+        class="w-full bg-white text-gray-800 font-medium py-2 px-4 border border-gray-300 rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 flex justify-between items-center transition">
         <span id="sortLabel">Trier par</span>
         <i class="fas fa-chevron-down ml-2 text-gray-500"></i>
       </button>
-      <div id="sortMenu" class="hidden absolute w-full mt-2 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-10">
-        <button data-sort="name-asc" class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Nom A–Z</button>
-        <button data-sort="name-desc" class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Nom Z–A</button>
-        <button data-sort="price-asc" class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Prix croissant</button>
-        <button data-sort="price-desc" class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Prix décroissant</button>
+      <div id="sortMenu"
+        class="hidden absolute w-full mt-2 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-10">
+        <button data-sort="name-asc"
+          class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Nom A–Z</button>
+        <button data-sort="name-desc"
+          class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Nom Z–A</button>
+        <button data-sort="price-asc"
+          class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Prix croissant</button>
+        <button data-sort="price-desc"
+          class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 transition">Prix décroissant</button>
       </div>
     </div>
   </div>
@@ -43,7 +49,8 @@
       <p class="text-gray-500">Découvrez nos modèles pour hommes.</p>
     </div>
 
-    <div id="products-container" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="200">
+    <div id="products-container" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+      data-aos="fade-up" data-aos-delay="200">
       <!-- Produits chargés dynamiquement -->
     </div>
   </section>
@@ -72,9 +79,17 @@
 
       let productsData = [];
 
+      // Ouvrir / fermer menu
       button.addEventListener("click", () => menu.classList.toggle("hidden"));
-      document.addEventListener("click", e => { if (!button.contains(e.target)) menu.classList.add("hidden"); });
 
+      // Fermer menu si clic à l'extérieur
+      document.addEventListener("click", e => {
+        if (!button.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.add("hidden");
+        }
+      });
+
+      // Tri
       options.forEach(opt => {
         opt.addEventListener("click", () => {
           options.forEach(o => o.classList.remove("text-red-500", "bg-red-50"));
@@ -85,6 +100,7 @@
         });
       });
 
+      // Fonction pour charger et trier les produits
       function loadProducts(sort = '') {
         fetch('../API/api_men.php')
           .then(res => res.json())
@@ -92,17 +108,18 @@
             if (!data.success) throw new Error("Impossible de charger les produits.");
             productsData = data.products;
 
-            // Trier si nécessaire
-            if (sort === 'name-asc') productsData.sort((a,b)=> a.nomprod.localeCompare(b.nomprod));
-            if (sort === 'name-desc') productsData.sort((a,b)=> b.nomprod.localeCompare(a.nomprod));
-            if (sort === 'price-asc') productsData.sort((a,b)=> parseFloat(a.prixprod)-parseFloat(b.prixprod));
-            if (sort === 'price-desc') productsData.sort((a,b)=> parseFloat(b.prixprod)-parseFloat(a.prixprod));
+            // Trier
+            if (sort === 'name-asc') productsData.sort((a, b) => a.nomprod.localeCompare(b.nomprod));
+            if (sort === 'name-desc') productsData.sort((a, b) => b.nomprod.localeCompare(a.nomprod));
+            if (sort === 'price-asc') productsData.sort((a, b) => parseFloat(a.prixprod) - parseFloat(b.prixprod));
+            if (sort === 'price-desc') productsData.sort((a, b) => parseFloat(b.prixprod) - parseFloat(a.prixprod));
 
             displayProducts(productsData);
           })
           .catch(err => container.innerHTML = '<p class="text-red-500">Impossible de charger les produits.</p>');
       }
 
+      // Affichage des produits
       function displayProducts(products) {
         container.innerHTML = '';
         products.forEach(product => {

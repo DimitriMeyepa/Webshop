@@ -229,52 +229,83 @@ if (!ref) {
 
 
 
-      // Tailles
-      const sizesContainer = document.getElementById('sizes');
-      sizesContainer.innerHTML = '';
-      if (Array.isArray(p.tailles_disponibles)) {
-        p.tailles_disponibles.forEach(size => {
-          if (size) {
-            const span = document.createElement('span');
-            span.textContent = size;
-            span.className = 'size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer';
-            sizesContainer.appendChild(span);
-          }
-        });
-      }
+    // Tailles
+    const sizesContainer = document.getElementById('sizes');
+    sizesContainer.innerHTML = '';
+    let selectedSize = null;
 
-      // Couleurs
-      const selectedColor = p.couleur_actuelle || '';
-      const colorsContainer = document.getElementById('colors');
-      colorsContainer.innerHTML = '';
-      if (Array.isArray(data.couleurs_disponibles)) {
-        data.couleurs_disponibles.forEach(c => {
-          const div = document.createElement('div');
-          div.className = 'color-option w-6 h-6 rounded cursor-pointer border border-gray-300';
-          div.dataset.src = c.image || p.image_principale;
-          div.title = c.nom || '';
-          if (c.nom === selectedColor) div.classList.add('border-2', 'border-black');
-
-          // Couleur CSS
-          if (c.hex && c.hex !== '') div.style.backgroundColor = c.hex;
-          else if (c.nom) {
-            switch (c.nom.toLowerCase()) {
-              case 'noir': div.style.backgroundColor = '#1f2937'; break;
-              case 'bleu': div.style.backgroundColor = '#1e40af'; break;
-              case 'gris': div.style.backgroundColor = '#374151'; break;
-              default: div.style.backgroundColor = '#000';
+    if (Array.isArray(p.tailles_disponibles)) {
+      p.tailles_disponibles.forEach(size => {
+        if (size) {
+          const span = document.createElement('span');
+          span.textContent = size;
+          span.className = 'size-option text-gray-700 border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 cursor-pointer';
+          
+          // Au clic, sélectionner ou désélectionner la taille
+          span.addEventListener('click', () => {
+            if (selectedSize === size) {
+              // Déselectionner si c'est déjà sélectionné
+              span.classList.remove('bg-black', 'text-white');
+              selectedSize = null;
+            } else {
+              // Retirer la sélection sur toutes les tailles
+              sizesContainer.querySelectorAll('.size-option').forEach(s => s.classList.remove('bg-black', 'text-white'));
+              
+              // Ajouter la sélection sur celle cliquée
+              span.classList.add('bg-black', 'text-white');
+              selectedSize = size;
             }
-          }
-
-          div.addEventListener('click', () => {
-            document.getElementById('product-image').src = div.dataset.src;
-            colorsContainer.querySelectorAll('.color-option').forEach(o => o.classList.remove('border-2', 'border-black'));
-            div.classList.add('border-2', 'border-black');
           });
 
-          colorsContainer.appendChild(div);
+          sizesContainer.appendChild(span);
+        }
+      });
+    }
+
+
+    // Couleurs
+    const colorsContainer = document.getElementById("colors");
+    colorsContainer.innerHTML = "";
+
+    if (Array.isArray(p.images)) {
+        p.images.forEach(imgObj => {
+            const dot = document.createElement("div");
+            dot.className = "w-6 h-6 rounded-full border border-gray-300 cursor-pointer";
+            dot.title = imgObj.couleur;
+            dot.style.backgroundColor = mapColorNameToHex(imgObj.couleur);
+
+            // Si c'est la couleur actuelle, bordure noire
+            if (imgObj.path === p.image_principale) {
+                dot.classList.add("border-2", "border-black");
+            }
+
+            // Au clic sur un cercle, changer l'image
+            dot.addEventListener("click", () => {
+                document.getElementById("product-image").src = imgObj.path;
+                colorsContainer.querySelectorAll(".w-6").forEach(d => d.classList.remove("border-2", "border-black"));
+                dot.classList.add("border-2", "border-black");
+            });
+
+            colorsContainer.appendChild(dot);
         });
-      }
+    }
+
+    function mapColorNameToHex(color) {
+        const map = {
+            bleu: "#1E40AF",
+            gris: "#6B7280",
+            noir: "#000000",
+            blanc: "#FFFFFF",
+            rouge: "#DC2626",
+            vert: "#16A34A",
+            violet: "#7C3AED",
+            marron: "#78350F",
+            beige: "#F5F5DC",
+        };
+        return map[color.toLowerCase()] || "#000";
+    }
+
+
 
       // Caractéristiques
       const featuresContainer = document.getElementById('product-features');
