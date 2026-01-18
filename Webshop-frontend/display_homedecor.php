@@ -61,7 +61,7 @@ if ($ref > 0) {
 
   <!-- Retour -->
   <div class="container mx-auto px-6 mt-4">
-    <a href="collection_men.php"
+    <a href="collection_homedecor.php"
       class="inline-flex items-center text-gray-700 border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-100 transition">
       <i class="fas fa-arrow-left mr-2"></i> Retour à la collection
     </a>
@@ -72,7 +72,7 @@ if ($ref > 0) {
       <div class="text-center py-16">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Produit introuvable</h2>
         <p class="text-gray-600 mb-6">Le produit que vous recherchez n'existe pas ou a été supprimé.</p>
-        <a href="collection_men.php" class="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition">
+        <a href="collection_homedecor.php" class="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition">
           Retourner à la collection
         </a>
       </div>
