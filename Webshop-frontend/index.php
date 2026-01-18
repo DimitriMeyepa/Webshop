@@ -25,81 +25,79 @@
 </head>
 
 <body class="bg-white text-gray-800">
-    <?php include 'includes/navbar.php'; ?>   
-
-
-  <div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
-    <div class="flex justify-between items-center p-6 border-b">
-      <h2 class="text-xl font-bold">Mon panier</h2>
-      <button id="close-cart-btn" class="text-gray-500 hover:text-black">
-        <i class="fas fa-times text-2xl"></i>
-      </button>
-    </div>
-
-    <div id="cart-items" class="flex-1 overflow-y-auto p-6">
-      <p class="text-gray-500 text-center">Votre panier est vide</p>
-    </div>
-
-    <div class="border-t p-6">
-      <div class="flex justify-between mb-4 font-semibold">
-        <span>Total:</span>
-        <span id="cart-total">0 MUR</span>
-      </div>
-      <a href="payment.html" class="block w-full bg-red-400 text-white py-3 px-4 rounded-lg hover:bg-red-500 transition font-semibold text-center shadow-md hover:shadow-lg">
-        Procéder au paiement
-      </a>
-      <button id="continue-shopping-btn" class="w-full mt-2 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition font-semibold">
-        Continuer vos achats
-      </button>
-    </div>
-  </div>
-
-  <div id="cart-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-all duration-300"></div>
+    <?php 
+    require_once '../config/config.php';
+    
+    $products = [];
+    try {
+        $pdo = getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM produit ORDER BY dateajoutprod DESC LIMIT 4");
+        $stmt->execute();
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach ($products as &$p) {
+            $stmtImg = $pdo->prepare("SELECT image_path FROM produit_images WHERE produit_id = ? LIMIT 1");
+            $stmtImg->execute([$p['referenceprod']]);
+            $imgData = $stmtImg->fetch(PDO::FETCH_ASSOC);
+            
+            if ($imgData && !empty($imgData['image_path'])) {
+                $p['image_principale'] = str_replace('C:/wamp64/www/Webshop/Webshop-frontend/', '', $imgData['image_path']);
+                if (!file_exists($p['image_principale'])) {
+                    $p['image_principale'] = 'img/homepage/chemise_en_lin.jpg';
+                }
+            } else {
+                $p['image_principale'] = 'img/homepage/chemise_en_lin.jpg';
+            }
+        }
+    } catch (PDOException $e) {
+        error_log("Erreur PDO: " . $e->getMessage());
+    }
+    
+    include 'includes/navbar.php'; 
+    ?>   
 
 
   <section class="relative overflow-hidden bg-[#f8f6f5] w-full">
     <div id="carousel-slides" class="relative w-full h-[560px] overflow-hidden">
       <div
         class="absolute inset-0 flex flex-col md:flex-row items-center justify-center transition-all duration-1000 slide opacity-100 pointer-events-auto bg-center bg-cover"
-        style="background-image: url('img/homepage/wintercollection.png')" data-aos="fade-in">
+        style="background-image: url('img/homepage/about.png')" data-aos="fade-in">
         <div class="absolute inset-0 bg-black/30"></div>
         <div class="relative z-10 text-center md:text-left max-w-lg text-white px-6" data-aos="fade-right"
           data-aos-delay="200">
           <p class="uppercase text-sm tracking-wider text-white-400 font-semibold mb-4">
-            Nouvelle collection
+            Qui sommes-nous?
           </p>
           <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-            Winter Collection 2026
+            À Propos de Webshop
           </h2>
           <p class="text-gray-200 mb-6">
-            Découvrez nos tenues modernes et élégantes pour cette saison
-            hivernale.
+            Nous proposons les meilleures collections de vêtements et d'accessoires pour tous les styles et toutes les occasions.
           </p>
-          <a href="#"
+          <a href="about.php"
             class="inline-block bg-red-400 text-white px-6 py-3 rounded hover:bg-red-500 transition font-medium"
-            data-aos="zoom-in" data-aos-delay="400">Découvrir maintenant</a>
+            data-aos="zoom-in" data-aos-delay="400">Voir plus</a>
         </div>
       </div>
 
       <div
         class="absolute inset-0 flex flex-col md:flex-row items-center justify-center transition-all duration-1000 slide opacity-0 pointer-events-none bg-center bg-cover"
-        style="background-image: url('img/homepage/summercollection.png')" data-aos="fade-in">
+        style="background-image: url('img/homepage/homed.webp')" data-aos="fade-in">
         <div class="absolute inset-0 bg-black/25"></div>
         <div class="relative z-10 text-center md:text-left max-w-lg text-white px-6" data-aos="fade-right"
           data-aos-delay="200">
           <p class="uppercase text-sm tracking-wider text-white-400 font-semibold mb-4">
-            Nouvelle collection
+            Collection spéciale
           </p>
           <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-            Summer Collection 2026
+            Home Decor & Accessoires
           </h2>
           <p class="text-gray-200 mb-6">
-            Découvrez nos tenues légères et élégantes pour cette saison
-            estivale.
+            Explorez notre sélection exclusive de décoration intérieure et d'accessoires pour embellir votre espace.
           </p>
-          <a href="#"
+          <a href="collection_homedecor.php"
             class="inline-block bg-red-400 text-white px-6 py-3 rounded hover:bg-red-500 transition font-medium"
-            data-aos="zoom-in" data-aos-delay="400">Découvrir maintenant</a>
+            data-aos="zoom-in" data-aos-delay="400">Voir la collection</a>
         </div>
       </div>
     </div>
@@ -128,7 +126,7 @@
         <h3 class="text-2xl font-bold mb-1 text-white drop-shadow-md">
           Collection Hommes 2026
         </h3>
-        <a href="collection_men.html"
+        <a href="collection_men.php"
           class="inline-block bg-red-400 text-white font-semibold uppercase text-sm px-5 py-3 rounded shadow-md hover:bg-red-500 transition"
           data-aos="zoom-in" data-aos-delay="400">
           Achetez maintenant
@@ -143,7 +141,7 @@
         <h3 class="text-2xl font-bold mb-1 text-white drop-shadow-md">
           Collection Femmes 2026
         </h3>
-        <a href="collection_women.html"
+        <a href="collection_women.php"
           class="inline-block bg-red-400 text-white font-semibold uppercase text-sm px-5 py-3 rounded shadow-md hover:bg-red-500 transition"
           data-aos="zoom-in" data-aos-delay="500">
           Achetez maintenant
@@ -163,52 +161,31 @@
     </div>
 
     <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <div class="bg-white shadow-lg rounded-lg overflow-hidden" data-aos="zoom-in">
-        <img src="img/homepage/chemise_en_lin.jpg" alt="Chemise en lin"
-          class="w-full h-80 object-cover product-image" />
-        <div class="p-4 text-center">
-          <h3 class="font-semibold text-lg">Chemise en lin</h3>
-          <p class="text-gray-500 mb-2">2,000 MUR</p>
-          <button class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500 transition">
-            Découvrir
-          </button>
+      <?php if (empty($products)): ?>
+        <div class="col-span-full text-center py-12">
+          <p class="text-gray-500 text-lg">Aucun produit disponible pour le moment.</p>
         </div>
-      </div>
-
-      <div class="bg-white shadow-lg rounded-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
-        <img src="img/homepage/chemise_pour_femme.jpg" alt="Chemise pour femme"
-          class="w-full h-80 object-cover product-image" />
-        <div class="p-4 text-center">
-          <h3 class="font-semibold text-lg">Chemise pour femme</h3>
-          <p class="text-gray-500 mb-2">1,800 MUR</p>
-          <button class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500 transition">
-            Découvrir
-          </button>
-        </div>
-      </div>
-
-      <div class="bg-white shadow-lg rounded-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="200">
-        <img src="img/homepage/pantalon_beige.jpg" alt="Pantalon beige"
-          class="w-full h-80 object-cover product-image" />
-        <div class="p-4 text-center">
-          <h3 class="font-semibold text-lg">Pantalon beige</h3>
-          <p class="text-gray-500 mb-2">2,000 MUR</p>
-          <button class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500 transition">
-            Découvrir
-          </button>
-        </div>
-      </div>
-
-      <div class="bg-white shadow-lg rounded-lg overflow-hidden" data-aos="zoom-in" data-aos-delay="300">
-        <img src="img/homepage/vestelegere.jpg" alt="Veste légère" class="w-full h-80 object-cover product-image" />
-        <div class="p-4 text-center">
-          <h3 class="font-semibold text-lg">Veste légère</h3>
-          <p class="text-gray-500 mb-2">3,400 MUR</p>
-          <button class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500 transition">
-            Découvrir
-          </button>
-        </div>
-      </div>
+      <?php else: ?>
+        <?php foreach ($products as $product): ?>
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition" data-aos="zoom-in">
+            <img src="<?php echo htmlspecialchars($product['image_principale']); ?>" 
+                 alt="<?php echo htmlspecialchars($product['nomprod']); ?>"
+                 class="w-full h-80 object-cover product-image" />
+            <div class="p-4 text-center">
+              <h3 class="font-semibold text-lg text-gray-800"><?php echo htmlspecialchars($product['nomprod']); ?></h3>
+              <p class="text-gray-500 mb-4"><?php echo number_format($product['prixprod'], 0, ',', ' '); ?> MUR</p>
+              <?php 
+                $genre = $product['genreprod'] ?? 'homme';
+                $page = ($genre === 'femme') ? 'display_women.php' : 'display_men.php';
+              ?>
+              <a href="<?php echo $page; ?>?ref=<?php echo $product['referenceprod']; ?>" 
+                 class="inline-block bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500 transition font-medium">
+                Découvrir
+              </a>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </div>
   </section>
 

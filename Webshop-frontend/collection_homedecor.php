@@ -5,7 +5,7 @@ require_once '../config/config.php';
 try {
     $pdo = getPDO();
     
-    $stmt = $pdo->prepare("SELECT * FROM produit WHERE genreprod = 'homme' ORDER BY dateajoutprod DESC");
+    $stmt = $pdo->prepare("SELECT * FROM produit WHERE genreprod = 'decoration' ORDER BY dateajoutprod DESC");
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
@@ -34,7 +34,7 @@ try {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Collection Hommes</title>
+  <title>Collection Décoration</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -76,7 +76,7 @@ try {
   <section class="container mx-auto px-6 py-16">
     <div class="text-center mb-12" data-aos="fade-up">
       <h2 class="text-3xl font-semibold mb-4">Notre Collection</h2>
-      <p class="text-gray-500">Découvrez nos modèles pour hommes.</p>
+      <p class="text-gray-500">Découvrez nos décorations d'intérieur</p>
     </div>
 
     <div id="products-container" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
@@ -95,7 +95,7 @@ try {
             <div class="p-4 text-center">
               <h3 class="font-semibold text-lg"><?php echo htmlspecialchars($product['nomprod']); ?></h3>
               <p class="text-gray-500 mb-4"><?php echo number_format($product['prixprod'], 0, ',', ' '); ?> MUR</p>
-              <a href="display_men.php?ref=<?php echo $product['referenceprod']; ?>" 
+              <a href="display_homedecor.php?ref=<?php echo $product['referenceprod']; ?>" 
                  class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500 transition inline-block">
                 Découvrir
               </a>
@@ -146,7 +146,7 @@ try {
                 <div class="p-4 text-center">
                   <h3 class="font-semibold text-lg"><?php echo htmlspecialchars($product['nomprod']); ?></h3>
                   <p class="text-gray-500 mb-4"><?php echo number_format($product['prixprod'], 0, ',', ' '); ?> MUR</p>
-                  <a href="display_men.php?ref=<?php echo $product['referenceprod']; ?>" 
+                  <a href="display_homedecor.php?ref=<?php echo $product['referenceprod']; ?>" 
                      class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-500 transition inline-block">
                     Découvrir
                   </a>

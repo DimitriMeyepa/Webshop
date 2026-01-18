@@ -15,43 +15,9 @@
 </head>
 
 <body class="bg-gray-50 text-gray-800">
-  <header class="border-b bg-white shadow-sm relative">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="brand-font playfair text-2xl font-bold tracking-wide">
-        Webshop<span class="text-red-500">.</span>
-      </h1>
-
-      <nav class="hidden md:flex space-x-8 text-sm font-medium">
-        <a href="index.html" class="text-red-400 border-b-2 border-red-400 pb-1">Accueil</a>
-        <a href="collection_men.html" class="hover:text-red-400 transition">Hommes</a>
-        <a href="collection_women.html" class="hover:text-red-400 transition">Femmes</a>
-        <a href="contact.html" class="hover:text-red-400 transition">Contact</a>
-      </nav>
-
-      <div class="flex items-center space-x-4 text-gray-600">
-        <i class="fas fa-search cursor-pointer hover:text-black"></i>
-        <a href="login.html"><i class="fas fa-user cursor-pointer hover:text-black"></i></a>
-        <div class="relative">
-          <i id="cart-icon" class="fas fa-shopping-bag cursor-pointer hover:text-black"></i>
-          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-400 text-white text-xs rounded-full px-1.5">0</span>
-        </div>
-
-        <button id="hamburger" class="md:hidden focus:outline-none">
-          <i class="fas fa-bars text-xl"></i>
-        </button>
-      </div>
-    </div>
-
-    <nav id="mobile-menu"
-      class="md:hidden absolute top-full left-0 w-full bg-white shadow-md max-h-0 overflow-hidden transition-all duration-500 ease-in-out z-10">
-      <ul class="flex flex-col text-sm font-medium">
-        <li><a href="index.html" class="block py-3 px-6 hover:bg-gray-100">Accueil</a></li>
-        <li><a href="collection_men.html" class="block py-3 px-6 hover:bg-gray-100">Hommes</a></li>
-        <li><a href="collection_women.html" class="block py-3 px-6 hover:bg-gray-100">Femmes</a></li>
-        <li><a href="contact.html" class="block py-3 px-6 hover:bg-gray-100">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+   <?php 
+    require_once '../config/config.php';
+    ?>
 
   <div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
     <div class="flex justify-between items-center p-6 border-b">
@@ -70,7 +36,7 @@
         <span>Total:</span>
         <span id="cart-total">0 MUR</span>
       </div>
-      <a href="payment.html" class="block w-full bg-red-400 text-white py-3 px-4 rounded-lg hover:bg-red-500 transition font-semibold text-center shadow-md hover:shadow-lg">
+      <a href="payment.php" class="block w-full bg-red-400 text-white py-3 px-4 rounded-lg hover:bg-red-500 transition font-semibold text-center shadow-md hover:shadow-lg">
         Procéder au paiement
       </a>
       <button id="continue-shopping-btn" class="w-full mt-2 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition font-semibold">
@@ -211,7 +177,7 @@
               Confirmer et payer
             </button>
 
-            <a href="index.html"
+            <a href="index.php"
               class="block w-full text-center border border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition font-semibold">
               Continuer les achats
             </a>

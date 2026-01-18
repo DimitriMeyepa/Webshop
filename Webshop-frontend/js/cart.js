@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function updateCartCount(count) {
-    const cartCount = document.querySelector('.absolute.bg-red-400 span');
+    const cartCount = document.getElementById('cart-count');
     if (cartCount) {
       cartCount.textContent = count;
     }
@@ -94,41 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cartItems) return;
 
     if (cart.length === 0) {
-      // Exemple static du panier 
-      const example = {
-        id: 'sample-1',
-        name: 'Costume élégant',
-        price: 5000,
-        quantity: 1,
-        image: 'img/costume/costume_bleu.jpg'
-      };
-
-      updateCartCount(1);
-      
-
-      cartItems.innerHTML = `
-        <div class="flex items-start gap-4 pb-4 border-b">
-          <img src="${example.image}" alt="${example.name}" class="w-20 h-20 object-cover rounded">
-          <div class="flex-1">
-            <h3 class="font-semibold text-sm">${example.name}</h3>
-            <p class="text-gray-500 text-xs">${example.price} MUR</p>
-            <div class="mt-2 flex items-center gap-2">
-              <button class="w-8 h-8 flex items-center justify-center border rounded text-gray-400 cursor-not-allowed">-</button>
-              <span class="px-3 py-1 border rounded text-sm">${example.quantity}</span>
-              <button class="w-8 h-8 flex items-center justify-center border rounded text-gray-400 cursor-not-allowed">+</button>
-            </div>
-            <p class="font-semibold text-sm mt-2">${example.price} MUR</p>
-          </div>
-          <button class="text-red-500 ml-2 opacity-60 cursor-not-allowed">
-            <i class="fas fa-trash"></i>
-          </button>
-          <button class="text-green-500 ml-2 opacity-60 cursor-not-allowed">
-            <i class="fas fa-edit"></i>
-          </button>
-        </div>
-      `;
-
-      if (cartTotal) cartTotal.textContent = example.price + ' MUR';
+      cartItems.innerHTML = `<p class="text-gray-500 text-center">Votre panier est vide</p>`;
+      if (cartTotal) cartTotal.textContent = '0 MUR';
       return;
     }
 
@@ -144,7 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <img src="${item.image || 'img/homepage/chemise_en_lin.jpg'}" alt="${item.name}" class="w-20 h-20 object-cover rounded">
           <div class="flex-1">
             <h3 class="font-semibold text-sm">${item.name}</h3>
-            <p class="text-gray-500 text-xs">${item.price} MUR</p>
+            ${item.color ? `<p class="text-gray-500 text-xs">Couleur: ${item.color}</p>` : ''}
+            ${item.size ? `<p class="text-gray-500 text-xs">Taille: ${item.size}</p>` : ''}
+            <p class="text-gray-500 text-xs font-medium">${item.price} MUR</p>
             <div class="mt-2 flex items-center gap-2">
               <button onclick="window.cartFunctions.changeQuantity('${item.id}', -1)" class="w-8 h-8 flex items-center justify-center border rounded text-gray-700 hover:bg-gray-100">-</button>
               <span class="px-3 py-1 border rounded text-sm">${item.quantity}</span>
@@ -152,9 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <p class="font-semibold text-sm mt-2">${itemTotal} MUR</p>
           </div>
-          <button onclick="window.cartFunctions.removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700 ml-2">
-            <i class="fas fa-trash"></i>
-          </button>
+          <div class="flex flex-col gap-1">
+            <button onclick="window.cartFunctions.editProduct('${item.productId}', '${item.color}', '${item.size}')" class="text-blue-500 hover:text-blue-700" title="Modifier">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button onclick="window.cartFunctions.removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700" title="Supprimer">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
       `;
     });
@@ -182,5 +156,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartDisplay();
   };
 
+  window.cartFunctions.editProduct = function(productId, color, size) {
+    closeCart();
+    window.location.href = `display_men.php?ref=${productId}&color=${encodeURIComponent(color)}&size=${encodeURIComponent(size)}&edit=true`;
+  };
+
   updateCartDisplay();
 });
+
